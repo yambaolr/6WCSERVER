@@ -15,13 +15,13 @@ app.get('/studentForm', (req, res) =>{
     res.sendFile(__dirname + '/pages/student.html')
 });
 
-//getStudent API route
-app.get('/getStudent', (req, res) => {
+//postStudent API route
+app.post('/postStudent', urlEncoderParser, (req, res) => {
     var response = {
-        studentId: req.query.studentId,
-        firstName: req.query.firstName,
-        lastName: req.query.lastName,
-        section: req.query.section
+        studentId: req.body.studentId,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        section: req.body.section
     }
 
     console.log("Response is: ", response);
@@ -33,13 +33,13 @@ app.get('/adminForm', (req, res) =>{
     res.sendFile(__dirname + '/pages/admin.html')
 });
 
-//getAdmin API route
-app.get('/getAdmin', (req, res) => {
+//postAdmin API route
+app.post('/postAdmin', urlEncoderParser, (req, res) => {
     var response = {
-        adminId: req.query.adminId,
-        firstName: req.query.firstName,
-        lastName: req.query.lastName,
-        department: req.query.department
+        adminId: req.body.adminId,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        department: req.body.department
     }
 
     console.log("Response is: ", response);
