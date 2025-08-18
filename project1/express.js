@@ -1,5 +1,10 @@
 import express, {response} from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+
+var app = express();
 const __dirname = import.meta.dirname;
+const urlEncoderParser = bodyParser.urlencoded({ extended: false });
 
 var app = express();
 
