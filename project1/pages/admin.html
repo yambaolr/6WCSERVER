@@ -2,12 +2,12 @@
 <html>
     <head>     
         <title>Admin Form</title>
-        <<link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body class="bg-black-500">
         <h2>Admin Form</h2>
         <hr>
-            <form action="/postAdmin" method="post">
+            <form action="/postAdmin" enctype="multipart/form-data" method="post">
                 <label for="adminId">Admin ID: </label>
                 <input type="text" id="adminId" name="adminId" class="inp">
                 <br />
@@ -23,6 +23,11 @@
                 <label for="department">Department: </label>
                 <input type="text" id="department" name="department" class="inp">
                 <br />
+
+                <label for="file" >Select File: </label>
+                <input type="file" id="file" name="file" class="inp">
+                <br />
+                
 
                 <input type="submit" value="Submit" class="submit">
             </form>

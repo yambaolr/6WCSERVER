@@ -1,19 +1,53 @@
 import express, {response} from 'express';
+import multer from 'multer';
+
+//file path
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import bodyParser from 'body-parser';
 
-var app = express();
 const __dirname = import.meta.dirname;
+const __filename = fileURLToPath(import.meta.url);
+
+var app = express();
+app.use(express.static('public/'));
 const urlEncoderParser = bodyParser.urlencoded({ extended: false });
 
-var app = express();
 
-app.use(express.static('public/'));
-
-//route for Homepage
-app.get('/', (req, res) =>{
-    res.sendFile(__dirname + '/pages/home.html')
+//storage object; tells multer where to put file and what name
+var storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, 'uploads/');
+    }, 
+    filename: (req, file, callback) => {
+        callback(null, file.originalname);
+    } 
 });
+
+var upload = multer({storage: storage}).fields([{name: 'file', maxCount: 1}]);
+
+// Class Example (08-18-2025)
+// //route for Homepage
+// app.get('/', (req, res) =>{
+//     res.sendFile(path.join(__dirname + '/pages/uploadForm.html'));
+// });
+
+//upload API route 
+// app.post('/upload', (req, res) =>{
+//     upload(req, res, (err) =>{
+//         if (err) return res.status(400).send('Error uploading file.');
+
+
+//         const username = req.body.username;
+//         const uploadedFile = req.files['file'][0];
+
+//         console.log(`Username: ${username}`);
+//         console.log(`File path: ${uploadedFile.path}`);
+        
+//         res.end('File and form data uploaded successfully.')
+//     });
+// });
 
 //route for studentForm
 app.get('/studentForm', (req, res) =>{
@@ -26,7 +60,7 @@ app.post('/postStudent', urlEncoderParser, (req, res) => {
         studentId: req.body.studentId,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        section: req.body.section
+        section: req.body.section,
     }
 
     console.log("Response is: ", response);
@@ -39,17 +73,23 @@ app.get('/adminForm', (req, res) =>{
 });
 
 //postAdmin API route
-app.post('/postAdmin', urlEncoderParser, (req, res) => {
-    var response = {
-        adminId: req.body.adminId,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        department: req.body.department
-    }
+app.post('/postAdmin', (req, res) => {
+    upload(req, res, (err) =>{
+        if (err) return res.status(400).send('Error uploading file.');
+        
+        const uploadedFile = req.files['file'][0];
+        var response = {
+            adminId: req.body.adminId,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            department: req.body.department,
+            uploadedFile: uploadedFile.path
+        }
 
-    console.log("Response is: ", response);
-    res.end(`Received Data: ${JSON.stringify(response)}`)
-})
+        console.log("Response is: ", response);
+        res.end(`Received Data: ${JSON.stringify(response)}`)
+    })
+});
 
 //listen to port
 var server = app.listen(5000, ()=> {
