@@ -1,7 +1,7 @@
 <template>
-    <h2>Admin Form</h2>
-        <hr>
-            <form action="/postAdmin" enctype="multipart/form-data" method="post">
+    <div class="page">
+      <h2>Admin Form</h2>
+        <form action="http://localhost:5000/postAdmin" enctype="multipart/form-data" method="post">
                 <label for="adminId">Admin ID: </label>
                 <input type="text" id="adminId" name="adminId" class="inp">
                 <br />
@@ -24,7 +24,8 @@
                 
 
                 <input type="submit" value="Submit" class="submit">
-            </form>
+        </form>
+    </div>
 </template>
 
 <script></script>
@@ -37,11 +38,17 @@
 body {
     background-color: #2c2c2c;
     color: #e2e2e2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     height: 100vh;
     margin: 0;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  min-width: 1200px;
 }
 
 form {
@@ -51,11 +58,12 @@ form {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 380px;
+    margin-bottom: 20px;
 }
 
 h2 {
-    text-align: center;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 label {
@@ -94,33 +102,4 @@ label:first-of-type {
     background-color: #5599dd;
 }
 
-hr {
-    margin: 1em 0;
-    width: 80%;
-    margin-bottom: 2em;
-}
-
-.links {
-    text-align: center;
-}
-
-.links a {
-    color: #e2e2e2;
-    text-decoration: none;
-    font-size: 1.2em;
-    font-weight: 800;
-}
-
-.links a:hover {
-    color: #f39c12;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0 !important;
-}
-
-ul li {
-    padding: 1em;
-}
 </style>
