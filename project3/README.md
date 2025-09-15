@@ -1,6 +1,9 @@
 # project3
-
-This template should help get you started developing with Vue 3 in Vite.
+A simple Vue 3 app with routing that demonstrates form handling for Student and Admin users.
+- Vue 3 with Vue Router navigation (/student and /admin) (Routing in main.js)
+- Student form (GET request) (Student.vue)
+- Admin form (POST request with file upload) (Admin.vue)
+- Express server for handling requests (/getStudent and /postAdmin) (server.js)
 
 ## Recommended IDE Setup
 
